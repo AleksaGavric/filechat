@@ -1,0 +1,7 @@
+langchain-community
+langchain-openai
+langchain
+openai
+pgvector
+psycopg2-binary
+flask

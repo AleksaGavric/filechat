@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: Dockerfile.pgvector
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+  filechat:
+    container_name: filechat
+    build: .
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      PGVECTOR_CONNECTION: postgresql+psycopg2://postgres:postgres@db:5433/usconstitution
+    depends_on:
+      - db
