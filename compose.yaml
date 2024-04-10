@@ -21,7 +21,7 @@ services:
             - fiscalnoteai
         environment:
             OPENAI_API_KEY: ${OPENAI_API_KEY}
-            PGVECTOR_CONNECTION: postgresql+psycopg2://postgres:postgres@db:5432/usconstitution
+            PGVECTOR_CONNECTION: postgresql+psycopg2://postgres:postgres@db:5432/documents
         depends_on:
             - db
         volumes:
