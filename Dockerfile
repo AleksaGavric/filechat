@@ -1,14 +1,8 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
-
-# Set the working directory in the container
+FROM python:3.11-slim
 WORKDIR /usr/src/app
-
-COPY requirements.txt ./
-
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Run your application using Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "filechat:app", "--reload"]
-
+COPY requirements.lock ./
+RUN pip install --no-cache-dir -r requirements.lock
+COPY filechat.py ./
+RUN useradd --create-home appuser
+USER appuser
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--timeout", "120", "filechat:app"]
